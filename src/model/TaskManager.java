@@ -14,6 +14,7 @@ public class TaskManager {
     private final Set<CallableCounter> taskSet = new HashSet<>();
     private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
+    // добавление задачи в очередь
     public boolean addTask(String filePath) {
         if(Files.exists(Paths.get(filePath))) {
             taskSet.add(new CallableCounter(filePath));
@@ -22,6 +23,7 @@ public class TaskManager {
         return false;
     }
 
+    // выполнение задач и возврат результата в виде множества объектов FileInfo
     public Set<FileInfo> execute() throws InterruptedException, ExecutionException {
         Set<FileInfo> result = new HashSet<>();
         for (CallableCounter counter : taskSet) {
